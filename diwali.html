@@ -1,0 +1,133 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Friendly Diwali Quiz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:lightblue;
+            text-align: center;
+
+            padding: 20px;
+        }
+        .question {
+            font-size: 24px;
+            margin: 20px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .options button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .options button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Eco-Friendly Diwali Quiz</h1>
+    <div id="quiz-container">
+        <div class="question" id="question-text"></div>
+        <div class="options" id="options-container"></div>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is a better alternative to bursting crackers during Diwali?",
+                options: ["Use eco-friendly crackers", "Celebrate with noise", "Use firecrackers with less smoke", "Avoid crackers and use diyas"],
+                correct: 3
+            },
+            {
+                question: "Which of these is the most eco-friendly Diwali decoration?",
+                options: ["Plastic decorations", "Electric fairy lights", "Cloth or paper lanterns", "Fireworks"],
+                correct: 2
+            },
+            {
+                question: "What can you do with old Diwali lights that are no longer working?",
+                options: ["Throw them away", "Recycle them", "Keep them in storage", "Give them to someone else"],
+                correct: 1
+            },
+            {
+                question: "How can you reduce plastic waste during Diwali?",
+                options: ["Use plastic plates and cups", "Use cloth bags for gifts", "Buy plastic gifts", "Use more plastic wrappers"],
+                correct: 1
+            },
+            {
+                question: "What is a sustainable way to clean up after Diwali?",
+                options: ["Use chemicals for cleaning", "Hire professional cleaners", "Clean with eco-friendly products", "Leave waste on the streets"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        // Function to load the current question and options
+        function loadQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            document.getElementById('question-text').innerText = currentQuestion.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = ''; // Clear previous options
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.onclick = function() {
+                    checkAnswer(index);
+                };
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        // Function to check if the answer is correct
+        function checkAnswer(selectedIndex) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            if (selectedIndex === currentQuestion.correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion(); // Load the next question
+            } else {
+                showResult(); // Show results after all questions are answered
+            }
+        }
+
+        // Function to show the result based on the score
+        function showResult() {
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerText = `Your score: ${score} out of ${quizData.length}`;
+
+            if (score === quizData.length) {
+                resultContainer.innerText += " - Excellent! You're ready for an eco-friendly Diwali!";
+            } else if (score >= quizData.length / 2) {
+                resultContainer.innerText += " - Great job! Keep going towards an eco-friendly Diwali!";
+            } else {
+                resultContainer.innerText += " - Let's make your Diwali greener next time!";
+            }
+        }
+
+        loadQuestion(); // Load the first question when the page loads
+    </script>
+
+</body>
+</html>
